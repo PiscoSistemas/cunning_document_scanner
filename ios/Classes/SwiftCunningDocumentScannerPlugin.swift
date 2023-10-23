@@ -14,18 +14,19 @@ public class SwiftCunningDocumentScannerPlugin: NSObject, FlutterPlugin, VNDocum
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    if call.method == "getPictures" {
-            let presentedVC: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
-            self.resultChannel = result
-            self.presentingController = VNDocumentCameraViewController()
-            self.presentingController!.delegate = self
-            presentedVC?.present(self.presentingController!, animated: true)
-        } else {
-            result(FlutterMethodNotImplemented)
-            return
-        }
-  }
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+      if call.method == "getPictures" {
+          let presentedVC: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
+          presentedVC.showsCameraControls = false
+          self.resultChannel = result
+          self.presentingController = VNDocumentCameraViewController()
+          self.presentingController!.delegate = self
+          presentedVC?.present(self.presentingController!, animated: true)
+      } else {
+          result(FlutterMethodNotImplemented)
+          return
+      }
+    }
 
 
     func getDocumentsDirectory() -> URL {
