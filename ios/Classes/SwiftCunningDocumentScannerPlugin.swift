@@ -17,7 +17,6 @@ public class SwiftCunningDocumentScannerPlugin: NSObject, FlutterPlugin, VNDocum
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
       if call.method == "getPictures" {
           let presentedVC: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
-          presentedVC.showsCameraControls = false
           self.resultChannel = result
           self.presentingController = VNDocumentCameraViewController()
           self.presentingController!.delegate = self
