@@ -35,6 +35,9 @@ public class SwiftCunningDocumentScannerPlugin: NSObject, FlutterPlugin, VNDocum
     }
 
     public func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
+        presentingController?.dismiss(animated: true, completion: nil)
+        presentingController = nil;
+
         let tempDirPath = self.getDocumentsDirectory()
         let currentDateTime = Date()
         let df = DateFormatter()
@@ -48,7 +51,6 @@ public class SwiftCunningDocumentScannerPlugin: NSObject, FlutterPlugin, VNDocum
             filenames.append(url.path)
         }
         resultChannel?(filenames)
-        presentingController?.dismiss(animated: true)
     }
 
     public func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
